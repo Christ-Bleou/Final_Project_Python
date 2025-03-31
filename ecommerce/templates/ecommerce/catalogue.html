@@ -1,0 +1,4 @@
+{% for oeuvre in oeuvres %}
+    <h2><a href="{% url 'detail_oeuvre' oeuvre.id %}">{{ oeuvre.titre }}</a></h2>
+    <img src="{{ oeuvre.image.url }}" alt="{{ oeuvre.titre }}">
+{% endfor %}

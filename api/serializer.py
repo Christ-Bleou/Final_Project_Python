@@ -1,0 +1,12 @@
+from rest_framework import serializers
+from ecommerce.models import Oeuvre, Location, Paiement
+
+class OeuvreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Oeuvre
+        fields = '__all__'
+
+class LocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Location
+        fields = '__all__'
