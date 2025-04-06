@@ -16,8 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from ecommerce import urls
+from core import urls
+from rest_framework import permissions # à supprimer
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('ecommerce/', include('ecommerce.urls')),
+    path('blog/', include('blog.urls')),
+    path('api/', include('api.urls')),
+    path('core/', include('core.urls')),
+    path('accounts/', include('ecommerce.urls')),  # Redirige les URLs /accounts/ vers ecommerce
+    path('schema/', SpectacularAPIView.as_view(), name='schema'),  # schéma brut JSON
+    path('swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),  # UI Swagger
+    path('redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),  # 👈 ici Redoc
 ]

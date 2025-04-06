@@ -1,0 +1,16 @@
+{% extends "ecommerce/base.html" %}
+{% block content %}
+  <div class="oeuvre-detail">
+    <h1>{{ oeuvre.titre }}</h1>
+    <img src="{{ oeuvre.image.url }}" alt="{{ oeuvre.titre }}" class="oeuvre-detail-image">
+    <p>{{ oeuvre.description }}</p>
+    <p><strong>Artiste :</strong> {{ oeuvre.artiste.username }}</p>
+    <p><strong>Prix de location :</strong> {{ oeuvre.prix_location }} €</p>
+    <p><strong>Description :</strong> {{ oeuvre.description }}</p>
+    {% if oeuvre.disponible %}
+      <a href="{% url 'louer_oeuvre' oeuvre.id %}" class="btn btn-primary">Louer cette œuvre</a>
+    {% else %}
+      <p>Cette œuvre n'est pas disponible pour la location.</p>
+    {% endif %}
+  </div>
+{% endblock %}

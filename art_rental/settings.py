@@ -11,10 +11,17 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Dossier où Django collectera tous les fichiers statiques
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "assets"),  # Définir "assets" comme dossier statique
+]
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -27,6 +34,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# settings.py
+LOGIN_URL = 'ecommerce/login/'
+
+AUTH_USER_MODEL = 'ecommerce.Utilisateur'
 
 # Application definition
 
@@ -42,16 +53,27 @@ INSTALLED_APPS = [
     'ecommerce',
     'blog',
     'api',
+    'core',
 
     # Extensions
     'rest_framework',
     'django_filters',
+    'drf_spectacular',
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': "API Location d'Œuvres d'Art",
+    'DESCRIPTION': "Documentation de l'API",
+    'VERSION': 'v1',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
 
 MIDDLEWARE = [
@@ -69,7 +91,7 @@ ROOT_URLCONF = 'art_rental.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],  # Dossier global "templates"
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

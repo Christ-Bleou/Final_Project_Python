@@ -1,0 +1,5 @@
+<h1>Blog</h1>
+{% for article in articles %}
+    <h2><a href="{% url 'detail_article' article.id %}">{{ article.titre }}</a></h2>
+    <p>Publié par {{ article.auteur.username }} le {{ article.date_publication }}</p>
+{% endfor %}

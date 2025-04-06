@@ -1,0 +1,22 @@
+{% extends "ecommerce/base.html" %}
+
+{% block content %}
+    <h1>Mes Locations</h1>
+
+    {% if locations %}
+        <ul>
+            {% for location in locations %}
+                <li>
+                    <h2>{{ location.oeuvre.titre }}</h2>
+                    <img src="{{ location.oeuvre.image.url }}" alt="{{ location.oeuvre.titre }}" width="150">
+                    <p><strong>Date de location :</strong> {{ location.date_debut }}</p>
+                    <p><strong>Date de retour prévue :</strong> {{ location.date_fin }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Vous n'avez pas encore loué d'œuvre.</p>
+    {% endif %}
+
+    <a href="{% url 'catalogue' %}" class="btn">Voir le catalogue</a>
+{% endblock %}

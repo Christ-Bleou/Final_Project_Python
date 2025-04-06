@@ -1,0 +1,13 @@
+{% extends "ecommerce/base.html" %}
+
+{% block content %}
+    <h1>Connexion</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Se connecter</button>
+    </form>
+
+    <p>Pas encore de compte ? <a href="{% url 'register' %}">Inscrivez-vous ici</a>.</p>
+{% endblock %}

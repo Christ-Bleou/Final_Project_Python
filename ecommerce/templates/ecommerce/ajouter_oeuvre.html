@@ -1,0 +1,10 @@
+{% extends "ecommerce/base.html" %}
+{% block content %}
+  <h1>Ajouter une Nouvelle Œuvre</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn">Ajouter l'œuvre</button>
+  </form>
+  <a href="{% url 'catalogue' %}" class="btn">Retour au Catalogue</a>
+{% endblock %}

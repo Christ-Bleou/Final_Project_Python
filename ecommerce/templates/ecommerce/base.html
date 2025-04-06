@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <!-- assets au lieu de static. Pour le css -->
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Plateforme de Location d'Œuvres d'Art{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- lien relativement absolu -->
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <!-- Liens toujours affichés -->
+                <li><a href="{% url 'base' %}">Accueil</a></li>
+                <li><a href="{% url 'catalogue' %}">Catalogue</a></li>
+            
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'mes_locations' %}">Mes Locations</a></li>
+                    <li><a href="{% url 'logout' %}">Déconnexion</a></li>
+
+                    {% if user.role == 'artiste' %}
+                        <li><a href="{% url 'ajouter_oeuvre' %}">Ajouter une Œuvre</a></li>
+                    {% endif %}
+                    
+                {% else %}
+                    <li><a href="{% url 'login' %}">Connexion</a></li>
+                    <li><a href="{% url 'register' %}">Inscription</a></li>
+                {% endif %}
+            </ul>            
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %} <!-- Pour catalogue & detail_oeuvre  -->
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Plateforme de Location d'Œuvres d'Art. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>

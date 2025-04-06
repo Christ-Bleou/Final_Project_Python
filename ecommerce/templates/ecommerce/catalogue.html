@@ -1,4 +1,17 @@
-{% for oeuvre in oeuvres %}
-    <h2><a href="{% url 'detail_oeuvre' oeuvre.id %}">{{ oeuvre.titre }}</a></h2>
-    <img src="{{ oeuvre.image.url }}" alt="{{ oeuvre.titre }}">
-{% endfor %}
+{% extends "ecommerce/base.html" %}
+{% block content %}
+  <h1>Catalogue des Œuvres d'Art</h1>
+  <div class="catalogue">
+    {% for oeuvre in oeuvres %}
+      <div class="oeuvre-item">
+        <h2>
+          <a href="{% url 'detail_oeuvre' oeuvre.id %}">{{ oeuvre.titre }}</a>
+        </h2>
+        <img src="{{ oeuvre.image.url }}" alt="{{ oeuvre.titre }}" class="oeuvre-image">
+        <p>Prix de location : {{ oeuvre.prix_location }} €</p>
+      </div>
+    {% empty %}
+      <p>Aucune œuvre disponible pour le moment.</p>
+    {% endfor %}
+  </div>
+{% endblock %}
