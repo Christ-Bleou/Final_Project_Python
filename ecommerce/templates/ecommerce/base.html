@@ -12,6 +12,10 @@
     <header>
         <nav>
             <ul>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/core/a_propos/">À propos</a></li>
+                <li><a href="/core/confidentialite/">Confidentialité</a></li>
+                <br>
                 <!-- Liens toujours affichés -->
                 <li><a href="{% url 'base' %}">Accueil</a></li>
                 <li><a href="{% url 'catalogue' %}">Catalogue</a></li>
@@ -31,6 +35,8 @@
             </ul>            
         </nav>
     </header>
+
+    <div><img src="{% static 'img/art_studio_table_full_materials.jpg' %}" alt="{{ outils_creation_oeuvres }}" class="img-accueil"></div>
 
     <main>
         {% block content %}{% endblock %} <!-- Pour catalogue & detail_oeuvre  -->

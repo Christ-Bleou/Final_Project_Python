@@ -1,3 +1,63 @@
+/* Reset de base */
 * {
-    background: red;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: lightblue;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+header {
+    background-color: #222;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin-top: 10px;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+main {
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #777;
+}
+
+.img-accueil {
+    width: 55%;          /* prend toute la largeur disponible */
+    max-height: auto;    /* limite la hauteur */
+    object-fit: cover;    /* garde le ratio sans déformer */
+    border-radius: 8px;   /* coins arrondis (optionnel) */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* ombre douce (optionnel) */
+    margin-bottom: 20px;  /* espace après l'image */
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
