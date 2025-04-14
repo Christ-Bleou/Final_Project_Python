@@ -10,7 +10,13 @@ from django.conf import settings
 from ecommerce.models import Oeuvre, Location
 from ecommerce.form import OeuvreForm
 
+# Pour la date
+from datetime import date, timedelta
+
 import os
+
+# Pour louer_oeuvre
+from django.contrib import messages
 
 def catalogue(request):
     oeuvres = Oeuvre.objects.filter(disponible=True)
@@ -81,3 +87,32 @@ def register(request):
 def logout_view(request):
     logout(request)
     return redirect('base')
+
+@login_required
+def louer_oeuvre(request, id): # id
+    oeuvre = get_object_or_404(Oeuvre, id=id) # id
+
+    if not oeuvre.disponible:
+        return render(request, 'ecommerce/erreur.html', {'message': "Oeuvre déjà louée."})
+
+    if request.method == 'POST':
+        # Exemple : location d'une semaine par défaut
+        date_debut = date.today()
+        date_fin = date_debut + timedelta(days=7)
+
+        Location.objects.create(
+            client=request.user,
+            oeuvre=oeuvre,
+            date_debut=date_debut,
+            date_fin=date_fin,
+            statut='en cours'
+        )
+        oeuvre.disponible = False
+        oeuvre.save()
+
+        # le message de succès
+        messages.success(request, f"Location de «{oeuvre.titre}» confirmée ! 🎉")
+
+        return redirect('detail_oeuvre', id=oeuvre.id)
+
+    return render(request, 'ecommerce/louer_oeuvre.html', {'oeuvre': oeuvre})

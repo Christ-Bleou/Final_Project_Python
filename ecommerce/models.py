@@ -45,7 +45,7 @@ class Oeuvre(models.Model):
     artiste = models.ForeignKey(Utilisateur, on_delete=models.CASCADE, related_name='oeuvres')
     prix_location = models.DecimalField(max_digits=10, decimal_places=2)
     disponible = models.BooleanField(default=True)
-    image = models.ImageField(upload_to='oeuvres/')
+    image = models.CharField(max_length=255)  # Pour prendre en compte les chemins
     date_ajout = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

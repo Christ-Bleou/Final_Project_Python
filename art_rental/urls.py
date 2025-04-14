@@ -21,6 +21,9 @@ from core import urls
 from rest_framework import permissions # à supprimer
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('ecommerce/', include('ecommerce.urls')),
@@ -32,3 +35,6 @@ urlpatterns = [
     path('swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),  # UI Swagger
     path('redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),  # 👈 ici Redoc
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])

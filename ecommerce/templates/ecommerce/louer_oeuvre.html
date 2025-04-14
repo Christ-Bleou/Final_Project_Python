@@ -1,0 +1,13 @@
+{% extends "ecommerce/base.html" %}
+{% block content %}
+  <div class="container">
+    <h2>Confirmation de location</h2>
+    <p>Souhaitez-vous louer <strong>{{ oeuvre.titre }}</strong> pour {{ oeuvre.prix_location }} € ?</p>
+
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-success">Confirmer la location</button>
+      <a href="{% url 'detail_oeuvre' oeuvre.id %}" class="btn btn-secondary">Annuler</a>
+    </form>
+  </div>
+{% endblock %}

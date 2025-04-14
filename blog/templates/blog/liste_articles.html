@@ -1,5 +1,24 @@
+{% extends 'ecommerce/base.html' %}
+{% block content %}
 <h1>Blog</h1>
+<p>L’objectif de ce projet est de rendre l’art plus accessible.
+    En effet, beaucoup de particuliers ou d’entreprises souhaitent exposer des œuvres d’art, mais l’achat n’est pas toujours envisageable.
+    J’ai donc imaginé une plateforme permettant de louer temporairement des œuvres d’art.
+    Le site permet également de promouvoir la culture artistique grâce à un blog, et il est conçu pour être évolutif avec une API REST intégrable dans d’autres services.</p>
+    
+<p>Ce projet m’a permis de mettre en pratique mes compétences en développement web full-stack avec Django.<br>
+    J’ai pu concevoir une solution complète : fonctionnelle, sécurisée, et évolutive, avec une interface utilisateur intuitive.<br>
+    C’est un projet que je peux continuer à enrichir, par exemple en ajoutant :</p>
+    <ul>
+        <li>un paiement en ligne </li>
+        <li>une galerie immersive </li>
+        <li>ou des notifications temps réel avec WebSockets </li>
+    </ul>
+    
+
 {% for article in articles %}
     <h2><a href="{% url 'detail_article' article.id %}">{{ article.titre }}</a></h2>
     <p>Publié par {{ article.auteur.username }} le {{ article.date_publication }}</p>
 {% endfor %}
+
+{% endblock %}

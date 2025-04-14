@@ -1,0 +1,14 @@
+{% extends "ecommerce/base.html" %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading">Erreur</h4>
+      <p>{{ message }}</p>
+      <!-- Bouton retour en arrière -->
+      <button onclick="history.back()" class="btn btn-secondary mt-3">
+        ← Retour
+      </button>
+    </div>
+  </div>
+{% endblock %}
