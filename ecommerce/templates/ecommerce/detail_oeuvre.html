@@ -1,16 +1,60 @@
 {% extends "ecommerce/base.html" %}
+{% load static %}
 {% block content %}
   <div class="oeuvre-detail">
     <h1>{{ oeuvre.titre }}</h1>
-    <img src="{{ oeuvre.image.url }}" alt="{{ oeuvre.titre }}" class="oeuvre-detail-image">
-    <p>{{ oeuvre.description }}</p>
+    <img src="{% static 'img/' %}{{ oeuvre.image }}" alt="{{ oeuvre.titre }}" class="oeuvre-detail-image">
+    <p>{{ oeuvre.description }}</p> <!-- à revoir -->
     <p><strong>Artiste :</strong> {{ oeuvre.artiste.username }}</p>
     <p><strong>Prix de location :</strong> {{ oeuvre.prix_location }} €</p>
     <p><strong>Description :</strong> {{ oeuvre.description }}</p>
+
+    <style>
+      button {
+        background-color: #43d09a;
+        color: hsl(45, 100%, 79%);
+      }
+      y,form {
+        background-color: pink;
+      }
+    </style>
+
     {% if oeuvre.disponible %}
       <a href="{% url 'louer_oeuvre' oeuvre.id %}" class="btn btn-primary">Louer cette œuvre</a>
     {% else %}
       <p>Cette œuvre n'est pas disponible pour la location.</p>
     {% endif %}
+    <!-- Pour les commentaires -->
+    <hr>
+  <h2>Commentaires</h2>
+  {% for commentaire in commentaires %}
+    <div>
+      <strong>{{ commentaire.auteur }} :</strong> 
+      <p>{{ commentaire.contenu }}</p>
+      <small>{{ commentaire.date_creation|date:"d/m/Y H:i" }}</small>
+
+      {% if user.is_authenticated and user.username == commentaire.auteur or user.is_staff %}
+          <form action="{% url 'supprimer_commentaire' commentaire.pk %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-link text-danger p-0">Supprimer</button>
+          </form>
+      {% endif %}
+
+    </div>
+    <hr>
+  {% empty %}
+    <p>Soyez le premier à commenter cette œuvre !</p>
+  {% endfor %}
+
+  {% if user.is_authenticated %}
+  <h3>Laisser un commentaire</h3>
+    <form class="y" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Envoyer</button>
+    </form>
+  {% else %}
+    <p><a href="{% url 'login' %}">Connecte-toi</a> pour commenter.</p>
+  {% endif %}
   </div>
 {% endblock %}

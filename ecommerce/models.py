@@ -11,6 +11,15 @@ class Article(models.Model):
 
     def __str__(self):
         return self.titre
+    
+class Commentaire(models.Model):
+    oeuvre = models.ForeignKey('Oeuvre', on_delete=models.CASCADE, related_name='commentaires')
+    auteur = models.CharField(max_length=100)
+    contenu = models.TextField()
+    date_creation = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Commentaire de {self.auteur} sur {self.oeuvre}"
 
 # Modèle utilisateur
 class Utilisateur(AbstractUser):

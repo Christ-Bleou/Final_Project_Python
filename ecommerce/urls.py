@@ -5,6 +5,7 @@ from ecommerce import views
 urlpatterns = [
     path('', views.base, name='base'),
     path('catalogue/', views.catalogue, name='catalogue'),
+    path('commentaire/<int:pk>/delete/', views.supprimer_commentaire, name='supprimer_commentaire'),
     path('oeuvre/<int:id>/', views.detail_oeuvre, name='detail_oeuvre'),
     path('oeuvre/<int:id>/louer/', views.louer_oeuvre, name='louer_oeuvre'),
     path('test/', views.ajouter_oeuvre_2, name='test'),
